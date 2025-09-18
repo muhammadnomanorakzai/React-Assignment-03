@@ -1,43 +1,25 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import "./Header.css";
 
 function Header() {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("currentUser");
     navigate("/Login");
-    setIsMenuOpen(false);
+    // Close menu when logging out
+    document.getElementById("menu-toggle").checked = false;
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
+  // Close menu when clicking on links
   const closeMenu = () => {
-    setIsMenuOpen(false);
+    document.getElementById("menu-toggle").checked = false;
   };
 
   // Close menu when clicking on overlay
   const closeMenuOnOverlay = () => {
-    setIsMenuOpen(false);
+    document.getElementById("menu-toggle").checked = false;
   };
-
-  // Prevent body scroll when menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    // Cleanup function
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMenuOpen]);
 
   return (
     <div className="nav-container">
@@ -46,29 +28,22 @@ function Header() {
       </div>
       
       {/* Hidden checkbox to control menu state */}
-      <input 
-        type="checkbox" 
-        id="menu-toggle" 
-        checked={isMenuOpen} 
-        onChange={() => setIsMenuOpen(!isMenuOpen)}
-        style={{display: 'none'}}
-      />
+      <input type="checkbox" id="menu-toggle" />
       
       {/* Toggle button label */}
-      <label htmlFor="menu-toggle" className="menu-toggle-label" onClick={toggleMenu}>
-        {isMenuOpen ? '✕' : '☰'}
+      <label htmlFor="menu-toggle" className="menu-toggle-label">
+        ☰
       </label>
       
       {/* Overlay for closing menu by clicking outside */}
-      {isMenuOpen && (
-        <div 
-          className="menu-overlay"
-          onClick={closeMenuOnOverlay}
-        />
-      )}
+      <label 
+        htmlFor="menu-toggle" 
+        className="menu-overlay"
+        onClick={closeMenuOnOverlay}
+      />
       
       {/* Navigation menu */}
-      <div className={`menu ${isMenuOpen ? 'menu-open' : ''}`}>
+      <div className="menu">
         <ul className="drop-down">
           <li>
             <NavLink 
