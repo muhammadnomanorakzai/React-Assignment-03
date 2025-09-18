@@ -6,13 +6,13 @@
   background-color: #2E2A47;
   color: wheat;
   padding: 1rem;
-  position: fixed;
+  position: relative;
+   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
   height: 70px;
-  box-sizing: border-box;
 }
 
 .menu {
@@ -64,8 +64,6 @@
   text-decoration: none;
   color: white;
   transition: color 0.3s ease;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
 }
 
 /* hover / active */
@@ -73,38 +71,33 @@
 .menu .drop-down a:active {
   color: #FFD369;
   text-decoration: none;
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* optional: active link styling using NavLink's isActive class */
 .menu .drop-down .active {
   color: #FFD369;
   font-weight: 600;
-  background-color: rgba(255, 211, 105, 0.1);
 }
 
 .logout-btn {
   margin-left: 20px;
   padding: 8px 15px;
-  background: #e74c3c;
+  background: red;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease;
-  font-weight: 500;
 }
 
 .logout-btn:hover {
-  background: #c0392b;
+  background: darkred;
 }
 
 /* Mobile Styles */
 @media (max-width: 768px) {
   .menu-toggle-label {
     display: block;
-    position: relative;
-    z-index: 1001;
   }
   
   .menu {
@@ -123,15 +116,20 @@
     gap: 2rem;
   }
   
-  /* When menu is open */
-  .menu.menu-open {
+  /* When checkbox is checked, show menu */
+  #menu-toggle:checked ~ .menu {
     right: 0;
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
   }
   
+  /* Change toggle icon when menu is open */
+  #menu-toggle:checked ~ .menu-toggle-label::before {
+    content: '✕';
+  }
+  
   .menu .drop-down {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
     width: 100%;
     text-align: center;
   }
@@ -141,7 +139,6 @@
     display: block;
     font-size: 1.1rem;
     width: 100%;
-    box-sizing: border-box;
   }
   
   .logout-btn {
@@ -149,11 +146,11 @@
     margin-top: 2rem;
     padding: 1rem 2rem;
     font-size: 1.1rem;
-    width: 80%;
   }
   
   /* Overlay for mobile menu */
   .menu-overlay {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -161,20 +158,34 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+  }
+  
+  /* Show overlay when menu is open */
+  #menu-toggle:checked ~ .menu-overlay {
+    display: block;
+  }
+  
+  /* Close menu when clicking on overlay */
+  .menu-overlay {
     cursor: pointer;
   }
   
+  /* Prevent body scroll when menu is open */
+  #menu-toggle:checked ~ .menu-overlay ~ body {
+    overflow: hidden;
+  }
+  
   /* Style for toggle label when menu is open */
-  .menu-open ~ .menu-toggle-label {
+  #menu-toggle:checked ~ .menu-toggle-label {
     position: fixed;
     right: 20px;
     top: 20px;
+    font-size: 30px;
   }
 }
 
-/* Desktop specific adjustments */
-@media (min-width: 769px) {
-  .menu-overlay {
-    display: none !important;
-  }
+/* Close menu when clicking on links (this requires a bit of JS but minimal) */
+.menu .drop-down a,
+.logout-btn {
+  cursor: pointer;
 }
