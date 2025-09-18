@@ -1,0 +1,180 @@
+/* Header.css */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2E2A47;
+  color: wheat;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 70px;
+  box-sizing: border-box;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+/* Hide the checkbox */
+#menu-toggle {
+  display: none;
+}
+
+/* Toggle button - hidden by default */
+.menu-toggle-label {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  z-index: 1001;
+  padding: 0.5rem;
+}
+
+/* reset ul default */
+.menu .drop-down {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+.logo {
+  color: white;
+  z-index: 1001;
+}
+
+/* li not necessary to style list-style now, but safe */
+.menu .drop-down li {
+  list-style: none;
+}
+
+/* Style links and remove underline for all link states */
+.menu .drop-down a,
+.menu .drop-down a:link,
+.menu .drop-down a:visited {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+/* hover / active */
+.menu .drop-down a:hover,
+.menu .drop-down a:active {
+  color: #FFD369;
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* optional: active link styling using NavLink's isActive class */
+.menu .drop-down .active {
+  color: #FFD369;
+  font-weight: 600;
+  background-color: rgba(255, 211, 105, 0.1);
+}
+
+.logout-btn {
+  margin-left: 20px;
+  padding: 8px 15px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-weight: 500;
+}
+
+.logout-btn:hover {
+  background: #c0392b;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .menu-toggle-label {
+    display: block;
+    position: relative;
+    z-index: 1001;
+  }
+  
+  .menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background-color: #2E2A47;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    padding-top: 80px;
+    gap: 2rem;
+  }
+  
+  /* When menu is open */
+  .menu.menu-open {
+    right: 0;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .menu .drop-down {
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .menu .drop-down a {
+    padding: 1rem;
+    display: block;
+    font-size: 1.1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .logout-btn {
+    margin-left: 0;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    width: 80%;
+  }
+  
+  /* Overlay for mobile menu */
+  .menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    cursor: pointer;
+  }
+  
+  /* Style for toggle label when menu is open */
+  .menu-open ~ .menu-toggle-label {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+  }
+}
+
+/* Desktop specific adjustments */
+@media (min-width: 769px) {
+  .menu-overlay {
+    display: none !important;
+  }
+}
